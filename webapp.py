@@ -20,18 +20,15 @@ def search_by_county():
     fact = "In " + state + ", the county with the highest percentage of under 18 year olds is " + county + "."
     return render_template('home.html', state_options=states, funFact=fact)
     
-def get_state_options():
-    """Return the html code for the drop down menu.  Each option is a state abbreviation from the demographic data."""
+def get_states():
+    """Return a list of state abbreviations from the demographic data."""
     with open('demographics.json') as demographics_data:
         counties = json.load(demographics_data)
     states=[]
     for c in counties:
         if c["State"] not in states:
             states.append(c["State"])
-    options=""
-    for s in states:
-        options += Markup("<option value=\"" + s + "\">" + s + "</option>") #Use Markup so <, >, " are not escaped lt, gt, etc.
-    return options
+    return states
 
 def county_most_under_18(state):
     """Return the name of a county in the given state with the highest percent of under 18 year olds."""
