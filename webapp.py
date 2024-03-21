@@ -8,17 +8,17 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    states = get_state_options()
+    states = get_states()
     #print(states)
-    return render_template('home.html', state_options=states)
+    return render_template('home.html', states=states)
 
 @app.route('/showFact')
 def search_by_county():
-    states = get_state_options()
+    states = get_states()
     state = request.args.get('state')
     county = county_most_under_18(state)
     fact = "In " + state + ", the county with the highest percentage of under 18 year olds is " + county + "."
-    return render_template('home.html', state_options=states, funFact=fact)
+    return render_template('home.html', states=states, funFact=fact)
     
 def get_states():
     """Return a list of state abbreviations from the demographic data."""
